@@ -9,15 +9,15 @@ require "influxdb"
 # Set ENV variables for Docker
 ########################################
 
-uniIP = ENV["uniIP"]
-uniPort  = ENV["uniPort"]
-uniUser = ENV["uniUser"]
-uniPass = ENV["uniPass"]
-influxIP = ENV["influxIP"]
-influxPort = ENV["influxPort"]
-influxUser = ENV["influxUser"]
-influxPass = ENV["influxPass"]
-influxTable = ENV["influxTable"]
+arrayIP = ENV["arrayIP"]
+arrayPort  = ENV["arrayPort"]
+arrayUser = ENV["arrayUser"]
+arrayPass = ENV["arrayPass"]
+tsdbIP = ENV["tsdbIP"]
+tsdbPort = ENV["tsdbPort"]
+tsdbUser = ENV["tsdbUser"]
+tsdbPass = ENV["tsdbPass"]
+tsdbTable = ENV["tsdbTable"]
 metricsEnv = ENV['metrics']
 
 #########################
@@ -69,7 +69,7 @@ end
 
 
 # Create influx instance and connect to InfluxDB
-influxdb = InfluxDB::Client.new influxTable, host: influxIP, port: influxPort, username: influxUser, password: influxPass
+influxdb = InfluxDB::Client.new tsdbTable, host: tsdbIP, port: tsdbPort, username: tsdbUser, password: tsdbPass
 
 
 
@@ -83,11 +83,11 @@ influxArray = []
 
 
 # Build our url strings
-keys_url = "https://#{uniIP}:#{uniPort}/univmax/restapi/performance/Array/keys"
-metrics_url = "https://#{uniIP}:#{uniPort}/univmax/restapi/performance/Array/metrics" 
+keys_url = "https://#{arrayIP}:#{arrayPort}/univmax/restapi/performance/Array/keys"
+metrics_url = "https://#{arrayIP}:#{arrayPort}/univmax/restapi/performance/Array/metrics" 
 
 # Create base 64 encoded auth
-auth = Base64.strict_encode64("#{uniUser}:#{uniPass}")
+auth = Base64.strict_encode64("#{arrayUser}:#{arrayPass}")
 
 #####################################################
 # Make Keys Call to get SYM IDs and Most Recent Date
